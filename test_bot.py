@@ -16,10 +16,14 @@ def get_bot_reply(text):
   res = requests.post('http://localhost:5000', headers={'Content-Type': 'application/json'}, json={'text': text})
   if res.status_code != 200:
     raise RuntimeError('Request failed')
+  res.close()
   return res.json()
 
 
 if __name__ == "__main__":
   while 42:
     user_input = prompt('> ', history=FileHistory('/tmp/.bot_history'))
-    print(get_bot_reply(user_input))
+    try:
+      print(get_bot_reply(user_input))
+    except RuntimeError as e:
+      print(e)

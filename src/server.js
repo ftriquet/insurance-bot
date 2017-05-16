@@ -25,7 +25,6 @@ app.use(bodyParser.json())
 
 // Handle / route
 app.use('/', (request, response) => {
-  console.log(request)
 
   // Call bot main function
   bot(request.body, response, (error, success) => {
@@ -33,7 +32,6 @@ app.use('/', (request, response) => {
       console.log('Error in your bot:', error)
       if (!response.headersSent) { response.sendStatus(400) }
     } else if (success) {
-      console.log(success)
       if (!response.headersSent) { response.status(200).json(success) }
     }
   })
