@@ -26,7 +26,6 @@ const client = new recastai(process.env.REQUEST_TOKEN)
  * - callback: Callback is a function called by Recast.AI hosting system when your code will be hosted
  */
 export const bot = (body, response, callback) => {
-  console.log(body)
   if (body.message) {
     /*
     * Call the Recast.AI SDK function to handle message from Bot Connector
