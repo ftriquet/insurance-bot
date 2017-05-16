@@ -6,19 +6,12 @@
 const recastai = require('recastai')
 
 // This function is the core of the bot behaviour
-const replyMessage = (message) => {
-  // Instantiate Recast.AI SDK, just for request service
-  const request = new recastai.request(process.env.REQUEST_TOKEN, process.env.LANGUAGE)
+export const replyMessage = (message) => {
   // Get text from message received
   const text = message.content
 
-  console.log('I receive: ', text)
-
-  // Get senderId to catch unique conversation_token
-  // const senderId = message.senderId
-
-  request.analyzeText(text).then(result => {
-    message.addReply({ type: 'text', content: `Hey! You talk about ${(result.intents[0] || {}).slug || 'noting I know about'}` })
+  replyText(text).then(reply => {
+    message.addReply(reply)
     return message.reply()
   }).then(() => {
     console.log('Message sent')
@@ -27,4 +20,16 @@ const replyMessage = (message) => {
   })
 }
 
-module.exports = replyMessage
+export const replyText = text => {
+  const request = new recastai.request(process.env.REQUEST_TOKEN, process.env.LANGUAGE)
+  return new Promise((success, failure) => {
+    request.analyseText(text)
+      .then(result => {
+        success({ type: 'text', content: `Hey! You talk about ${(result.intents[0] || {}).slug || 'nothing I know about'}` })
+      })
+      .catch(err => {
+        console.error('Error while sending message to Recast.AI', err)
+        failure(err)
+      })
+  })
+}
