@@ -4,11 +4,11 @@ const fs = require('fs')
 const consumeDb = () => new Promise((success, failure) => {
   fs.readFile('src/db.json', (err, data) => {
     if (err) { return failure(err) }
-    success(JSON.parse(data))
+    return success(JSON.parse(data))
   })
 })
 
-export const replyMessage = (message) => {
+const replyMessage = (message) => {
   // Get text from message received
   const text = message.content
 
@@ -36,8 +36,7 @@ const handleSimCard = (db, result) => {
   return { type: 'text', content: 'Alright, I need the PUK code in order to unlock your sim card.' }
 }
 
-export const replyText = (text, userId) => {
-  console.log(userId)
+const replyText = (text, userId) => {
   const request = new recastai.request(process.env.REQUEST_TOKEN, process.env.LANGUAGE)
   return new Promise((success, failure) => {
     Promise.all([consumeDb(), request.analyseText(text)])
@@ -51,8 +50,9 @@ export const replyText = (text, userId) => {
         }
 
         callSF().then(res => success({ type: 'text', content: res }))
-
       })
       .catch(failure)
   })
 }
+
+module.exports = { replyText, replyMessage }
