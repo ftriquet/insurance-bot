@@ -12,7 +12,7 @@ const bot = (body, response, callback) => {
     // for hosting
     callback(null, { result: 'Bot answered :)' })
   } else if (body.text) {
-    replyText(body.text, 'abcd')
+    replyText(body.text, body.messageId || 'abcd')
       .then(reply => {
         callback(null, { reply })
       })
