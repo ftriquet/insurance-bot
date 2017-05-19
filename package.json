@@ -4,10 +4,10 @@
   "description": "A bot built with Recast.AI",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
-    "prod": "node src/server.js",
-    "lint": "eslint src/",
-	"build": "echo BUILD"
+    "start": "nodemon lib/server.js",
+    "prod": "node lib/server.js",
+    "lint": "eslint lib/",
+    "build": "echo BUILD"
   },
   "author": "Recast",
   "license": "ISC",
