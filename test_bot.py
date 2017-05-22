@@ -13,7 +13,7 @@ def get_bot_reply(text):
   :returns: TODO
 
   """
-  res = requests.post('http://localhost:5000/', headers={'Content-Type': 'application/json'}, json={'text': text})
+  res = requests.post('https://run.recast.ai/mandre-insurance-bot-1', headers={'Content-Type': 'application/json'}, json={'text': text})
   if res.status_code != 200:
     raise RuntimeError('Request failed')
   res.close()
