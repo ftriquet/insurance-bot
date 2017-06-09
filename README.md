@@ -1,4 +1,4 @@
-# Locked Sim Bot
+# Insurance Bot
 
 A very simple chatbot to handle customer questions about sim cards.
 
